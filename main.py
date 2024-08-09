@@ -26,7 +26,9 @@ song_urls = []
 for song in song_titles:
     try:
         spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
-            client_id="124fd59ce340453297c2a4713e305504", client_secret="07b22c1324ef48acaefedf36ef71de87"))
+        
+            client_id= os.environ[CLIENT_ID], 
+            client_secret= os.environ[CLIENT_SECRET]))
         song_details = spotify.search(q=song, limit=1, offset=0, type="track")
         print(f"{song}: {song_details["tracks"]["items"][0]["external_urls"]["spotify"]}")
         song_urls.append(song_details["tracks"]["items"][0]["external_urls"]["spotify"])
@@ -34,13 +36,13 @@ for song in song_titles:
         print(f"{song} not found on spotify")
 
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='124fd59ce340453297c2a4713e305504',
-                                               client_secret='07b22c1324ef48acaefedf36ef71de87',
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id= os.environ[CLIENT_ID],
+                                               client_secret=os.environ[CLIENT_SECRET],
                                                redirect_uri='https://developer.spotify.com/dashboard',
                                                scope='playlist-modify-public'))
 
 # Now call the instance method on the Spotify object
-new_playlist = sp.user_playlist_create(user="31axpkkcywaoeqiv36v53vxxfnmi",
+new_playlist = sp.user_playlist_create(user=os.environ[USER_ID],
                                        name=f"{user_reply} - hot 10 songs",
                                        public=True,
                                        collaborative=True,
@@ -51,8 +53,8 @@ playlist_id = new_playlist["id"]
 print(f" Your Playlist's URL is : {playlist_url}")
 
 add_song = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id='124fd59ce340453297c2a4713e305504',
-    client_secret='07b22c1324ef48acaefedf36ef71de87',
+    client_id= os.environ[CLIENT_ID],
+    client_secret=os.environ[CLIENT_SECRET],
     redirect_uri='https://developer.spotify.com/dashboard',
 ))
 
