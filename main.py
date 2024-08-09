@@ -27,8 +27,8 @@ for song in song_titles:
     try:
         spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
         
-            client_id= os.environ[CLIENT_ID], 
-            client_secret= os.environ[CLIENT_SECRET]))
+            client_id= os.environ["CLIENT_ID"], 
+            client_secret= os.environ["CLIENT_SECRET"]))
         song_details = spotify.search(q=song, limit=1, offset=0, type="track")
         print(f"{song}: {song_details["tracks"]["items"][0]["external_urls"]["spotify"]}")
         song_urls.append(song_details["tracks"]["items"][0]["external_urls"]["spotify"])
@@ -36,8 +36,8 @@ for song in song_titles:
         print(f"{song} not found on spotify")
 
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id= os.environ[CLIENT_ID],
-                                               client_secret=os.environ[CLIENT_SECRET],
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id= os.environ["CLIENT_ID"],
+                                               client_secret=os.environ["CLIENT_SECRET"],
                                                redirect_uri='https://developer.spotify.com/dashboard',
                                                scope='playlist-modify-public'))
 
@@ -53,8 +53,8 @@ playlist_id = new_playlist["id"]
 print(f" Your Playlist's URL is : {playlist_url}")
 
 add_song = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id= os.environ[CLIENT_ID],
-    client_secret=os.environ[CLIENT_SECRET],
+    client_id= os.environ["CLIENT_ID"],
+    client_secret=os.environ["CLIENT_SECRET"],
     redirect_uri='https://developer.spotify.com/dashboard',
 ))
 
